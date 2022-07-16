@@ -1,0 +1,73 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model cards {
+  id             Int      @id @default(autoincrement())
+  userId         Int?
+  title          String
+  number         String   @db.VarChar(16)
+  name           String
+  cvc            String   @db.VarChar(3)
+  password       String
+  isVirtual      Boolean? @default(false)
+  type           String
+  expirationDate String
+  creatAt        DateTime @default(now()) @db.Timestamp(6)
+  users          users?   @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model credentials {
+  id       Int      @id @default(autoincrement())
+  userId   Int?
+  url      String
+  title    String
+  password String
+  username String
+  creatAt  DateTime @default(now()) @db.Timestamp(6)
+  users    users?   @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model notes {
+  id      Int      @id @default(autoincrement())
+  userId  Int?
+  title   String   @db.VarChar(50)
+  text    String   @db.VarChar(1000)
+  creatAt DateTime @default(now()) @db.Timestamp(6)
+  users   users?   @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model sessions {
+  id      Int      @id @default(autoincrement())
+  userId  Int?
+  token   String   @unique
+  creatAt DateTime @default(now()) @db.Timestamp(6)
+  users   users?   @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model users {
+  id          Int           @id @default(autoincrement())
+  email       String        @unique
+  password    String
+  creatAt     DateTime      @default(now()) @db.Timestamp(6)
+  cards       cards[]
+  credentials credentials[]
+  notes       notes[]
+  sessions    sessions[]
+  wifi        wifi[]
+}
+
+model wifi {
+  id       Int      @id @default(autoincrement())
+  userId   Int?
+  title    String
+  name     String
+  password String
+  creatAt  DateTime @default(now()) @db.Timestamp(6)
+  users    users?   @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
