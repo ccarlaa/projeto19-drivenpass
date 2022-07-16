@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import newUserSchema from '../utils/userSchema.js';
 
-export async function newUserMiddleware(req: Request, res: Response, next: NextFunction) {
+export async function bodyMiddleware(req: Request, res: Response, next: NextFunction) {
     const { error } = newUserSchema.validate(req.body)
 
     if(error) {
