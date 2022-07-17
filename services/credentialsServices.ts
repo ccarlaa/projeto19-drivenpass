@@ -3,7 +3,7 @@ import { newCredential, getCredentialById } from "../repositories/credentialsRep
 import { encrypt } from "../utils/ncrypt.js";
 
 export async function newCredentialService(title: string, password: string, username: string, url: string, userId: number) {
-    const validateCredential = await verifyCredential(title);
+    const validateCredential = await verifyCredential(title, userId);
 
     if(validateCredential != undefined) {
         throw { status: 409, message: "Title in use" };
@@ -27,7 +27,7 @@ export async function verifyCredentialService(id: number, userId: number) {
         throw { status: 404, message: "Credential not find" }; 
     }
     if(credential.userId !== userId){
-        throw { status: 401, message: "Unauthorized" };
+        throw { status: 401, message: "Unauthorized: Another user's credential" };
     }
     return credential
 }
