@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
-import { insert, creatSession } from '../repositories/usersRepository.js';
+import { insert } from '../repositories/usersRepository.js';
+import { creatSession } from '../repositories/sessionsRepository.js';
 import { newUserService, signInService } from '../services/usersServices.js';
 
 export async function newUserController(req: Request, res: Response, next: NextFunction) {

@@ -1,4 +1,5 @@
-import { newUser, verifyEmail, newSession } from "../repositories/usersRepository.js";
+import { newUser, verifyEmail } from "../repositories/usersRepository.js";
+import { newSession } from "../repositories/sessionsRepository.js";
 import { encrypt, verifyPassword } from "../utils/bcrypt.js";
 import { tokenGenerator } from "../utils/token.js";
 
@@ -14,6 +15,7 @@ export async function newUserService(email: string, password: string) {
         email,
         password: passwordEncrypted
     }
+    
     return user;
 }
 
