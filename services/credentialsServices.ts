@@ -1,4 +1,4 @@
-import { verifyCredential } from "../repositories/credentialsRepository.js";
+import { getAllCredentials, verifyCredential } from "../repositories/credentialsRepository.js";
 import { newCredential, getCredentialById } from "../repositories/credentialsRepository.js";
 import { encrypt } from "../utils/ncrypt.js";
 
@@ -19,6 +19,14 @@ export async function newCredentialService(title: string, password: string, user
     };
 
     return credential;
+}
+
+export async function verifyAllCredentials(userId: number) {
+    const credentials = await getAllCredentials(userId);
+    if(credentials == undefined) {
+        throw { status: 404, message: "Credential not find" }; 
+    }
+    return credentials;
 }
 
 export async function verifyCredentialService(id: number, userId: number) {

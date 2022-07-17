@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { newNoteService } from '../services/notesService.js';
+import { newNoteService, verifyAllNotes } from '../services/notesService.js';
 import { insert } from '../repositories/notesRepository.js';
 
 export async function newNoteController(req: Request, res: Response) {
@@ -13,4 +13,10 @@ export async function newNoteController(req: Request, res: Response) {
         console.log(error)
         return res.status(500).send(error);
     }
+}
+
+export async function getAllNotesController(req: Request, res: Response) {
+    const { userId } = res.locals.userId;
+    const notes = await verifyAllNotes(userId)
+    return res.status(200).send(notes);
 }

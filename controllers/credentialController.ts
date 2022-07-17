@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { newCredentialService, verifyCredentialService } from '../services/credentialsServices.js';
+import { newCredentialService, verifyCredentialService, verifyAllCredentials } from '../services/credentialsServices.js';
 import { insert, getAllCredentials, deleteCredential } from '../repositories/credentialsRepository.js';
 
 export async function newCredentialController(req: Request, res: Response) {
@@ -17,13 +17,8 @@ export async function newCredentialController(req: Request, res: Response) {
 
 export async function getAllCredentialsController(req: Request, res: Response) {
     const { userId } = res.locals.userId;
-    try {
-        const credentials = await getAllCredentials(userId);
-        return res.status(200).send(credentials);
-    } catch (error) {
-        console.log(error)
-        return res.status(500).send(error);
-    }
+    const credentials = await verifyAllCredentials(userId)
+    return res.status(200).send(credentials);
 }
 
 export async function getCredentialByIdController(req: Request, res: Response) {
