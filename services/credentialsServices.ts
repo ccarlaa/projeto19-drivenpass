@@ -1,5 +1,5 @@
 import { verifyCredential } from "../repositories/credentialsRepository.js";
-import { newCredential } from "../repositories/credentialsRepository.js";
+import { newCredential, getCredentialById } from "../repositories/credentialsRepository.js";
 import { encrypt } from "../utils/ncrypt.js";
 
 export async function newCredentialService(title: string, password: string, username: string, url: string, userId: number) {
@@ -18,5 +18,13 @@ export async function newCredentialService(title: string, password: string, user
         password: passwordEncrypted
     };
 
+    return credential;
+}
+
+export async function verifyCrendential(id: number, userId: number) {
+    const credential = await getCredentialById(id);
+    if(credential.userId == userId){
+        throw { status: 401, message: "Unauthorized" };
+    }
     return credential;
 }

@@ -21,3 +21,10 @@ export async function getAllCredentials(userId: number) {
     });
     return credentialsList;
 }
+
+export async function getCredentialById(id: number) {
+    const credential = await prisma.credentials.findFirst({where: {id: id}});
+    const passwordDecrypted = decrypt(credential.password);
+    const credentialInfos = {...credential, password: passwordDecrypted};
+    return credentialInfos;
+}
