@@ -24,7 +24,7 @@ export async function newCredentialService(title: string, password: string, user
 export async function verifyAllCredentials(userId: number) {
     const credentials = await getAllCredentials(userId);
     if(credentials == undefined) {
-        throw { status: 404, message: "Credential not find" }; 
+        throw { status: 404, message: "Credentials not find" }; 
     }
     return credentials;
 }

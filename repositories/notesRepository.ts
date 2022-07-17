@@ -24,3 +24,17 @@ export async function getAllNotes(userId: number) {
     }
     return notes;
 }
+
+export async function getNoteById(id: number) {
+    const note = await prisma.notes.findFirst({where: {id: id}});
+    if(note) {
+        const textDecrypted = decrypt(note.text);
+        const noteInfos = {...note, text: textDecrypted};
+        return noteInfos;
+    }
+    return note;
+}
+
+export async function deleteNote(id: number) {
+    await prisma.notes.delete({where: {id: id}});
+}
