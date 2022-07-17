@@ -21,10 +21,13 @@ export async function newCredentialService(title: string, password: string, user
     return credential;
 }
 
-export async function verifyCrendential(id: number, userId: number) {
+export async function verifyCredentialService(id: number, userId: number) {
     const credential = await getCredentialById(id);
-    if(credential.userId == userId){
+    if(credential == undefined) {
+        throw { status: 404, message: "Credential not find" }; 
+    }
+    if(credential.userId !== userId){
         throw { status: 401, message: "Unauthorized" };
     }
-    return credential;
+    return credential
 }

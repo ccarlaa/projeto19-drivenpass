@@ -24,7 +24,14 @@ export async function getAllCredentials(userId: number) {
 
 export async function getCredentialById(id: number) {
     const credential = await prisma.credentials.findFirst({where: {id: id}});
-    const passwordDecrypted = decrypt(credential.password);
-    const credentialInfos = {...credential, password: passwordDecrypted};
-    return credentialInfos;
+    if(credential) {
+        const passwordDecrypted = decrypt(credential.password);
+        const credentialInfos = {...credential, password: passwordDecrypted};
+        return credentialInfos;
+    }
+    return credential;
+}
+
+export async function deleteCredential(id: number) {
+    await prisma.credentials.delete({where: {id: id}});
 }
