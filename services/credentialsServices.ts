@@ -1,6 +1,6 @@
 import { verifyCredential } from "../repositories/credentialsRepository.js";
 import { newCredential } from "../repositories/credentialsRepository.js";
-import { encrypt } from "../utils/bcrypt.js";
+import { encrypt } from "../utils/ncrypt.js";
 
 export async function newCredentialService(title: string, password: string, username: string, url: string, userId: number) {
     const validateCredential = await verifyCredential(title);
