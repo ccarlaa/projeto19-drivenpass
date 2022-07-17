@@ -3,7 +3,8 @@ import express, {json} from "express";
 import dotenv from "dotenv";
 import "express-async-errors";
 
-import userRoute from "./routes/usersRoute.js";
+import userRoute from "./routes/usersRoutes.js";
+import credentialsRoute from "./routes/credentialsRoutes.js";
 import errorHandle from "./middlewares/handErros.js";
 
 dotenv.config();
@@ -13,6 +14,8 @@ app.use(cors());
 app.use(json());
 
 app.use(userRoute);
+app.use(credentialsRoute);
+
 app.use(errorHandle);
 
 const port = process.env.PORT
