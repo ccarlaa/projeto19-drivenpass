@@ -15,11 +15,14 @@ export async function verifyCredential(title: string, userId: number) {
 
 export async function getAllCredentials(userId: number) {
     const credentials = await prisma.credentials.findMany({where: {userId: userId}});
-    let credentialsList = credentials.map((credential) => {
-        let passwordDecrypted = decrypt(credential.password)
-        return ({...credential, password: passwordDecrypted})
-    });
-    return credentialsList;
+    if(credentials) {
+        let credentialsList = credentials.map((credential) => {
+            let passwordDecrypted = decrypt(credential.password)
+            return ({...credential, password: passwordDecrypted})
+        });
+        return credentialsList;
+    }
+    return credentials
 }
 
 export async function getCredentialById(id: number) {
