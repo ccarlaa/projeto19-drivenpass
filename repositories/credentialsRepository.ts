@@ -8,6 +8,6 @@ export async function insert(credential: newCredential) {
 }
 
 export async function verifyCredential(title: string) { 
-    const credentialsInfos = await prisma.credentials.findFirst({where: {title: title}});
+    const credentialsInfos = await prisma.credentials.findFirst({where: {title: {equals: title, mode: 'insensitive'}}});
     return credentialsInfos;
 }

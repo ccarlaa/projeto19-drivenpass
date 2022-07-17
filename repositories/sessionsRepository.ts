@@ -9,6 +9,5 @@ export async function creatSession(session: newSession) {
 
 export async function verifySession(token: string) {
     const sessionInfos = await prisma.sessions.findFirst({where: {token: token}});
-    console.log(token)
-    return sessionInfos
+    return sessionInfos;
 }
