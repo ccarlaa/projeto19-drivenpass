@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { insert } from '../repositories/wifiRepository.js';
+import { deleteWifi, insert } from '../repositories/wifiRepository.js';
 import { newWifiService, verifyAllWifi, verifyWifiService } from '../services/wifiServices.js';
 
 export async function newWifiController(req: Request, res: Response) {
@@ -27,4 +27,18 @@ export async function getWifiByIdController(req: Request, res: Response) {
     const idNum = parseInt(id);
     const note = await verifyWifiService(idNum, userId);
     return res.status(200).send(note);
+}
+
+export async function deleteWifiController(req: Request, res: Response) {
+    const { id } = req.params;
+    const { userId } : { userId: number } = res.locals.userId;
+    const idNum = parseInt(id);
+    await verifyWifiService(idNum, userId);
+    try {
+        await deleteWifi(idNum);
+        return res.status(200).send("Wifi deleted");
+    } catch (error) {
+        console.log(error)
+        return res.status(500).send(error);
+    }
 }
