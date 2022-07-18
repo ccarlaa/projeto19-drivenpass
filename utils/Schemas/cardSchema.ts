@@ -1,5 +1,4 @@
 import joi from "joi";
-import { cards } from "@prisma/client";
 
 const newCardSchema = joi.object({
   title: joi.string().required(),
