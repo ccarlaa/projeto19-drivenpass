@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { insert } from '../repositories/wifiRepository.js';
-import { newWifiService } from '../services/wifiServices.js';
+import { newWifiService, verifyAllWifi } from '../services/wifiServices.js';
 
 export async function newWifiController(req: Request, res: Response) {
     const { title, name, password } : { title: string, name: string, password: string } = req.body;
@@ -13,4 +13,10 @@ export async function newWifiController(req: Request, res: Response) {
         console.log(error)
         return res.status(500).send(error);
     }
+}
+
+export async function getAllWifiController(req: Request, res: Response) {
+    const { userId } = res.locals.userId;
+    const wifi = await verifyAllWifi(userId)
+    return res.status(200).send(wifi);
 }
