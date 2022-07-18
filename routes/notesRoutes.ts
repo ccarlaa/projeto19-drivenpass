@@ -5,7 +5,7 @@ import { newNoteController, getAllNotesController, getNoteByIdController } from 
 
 const notesRoute = Router();
 
-notesRoute.post('/new-notes', validateToken, newNotesMiddleware, newNoteController );
+notesRoute.post('/new-note', validateToken, newNotesMiddleware, newNoteController );
 notesRoute.get('/get-notes', validateToken, getAllNotesController);
 notesRoute.get('/get-notes/:id', validateToken, getNoteByIdController);
 notesRoute.delete('/delete-note/:id', validateToken, getNoteByIdController);
