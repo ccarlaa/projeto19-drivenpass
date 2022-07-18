@@ -19,3 +19,13 @@ export async function getAllWifi(userId: number) {
     }
     return wifi;
 }
+
+export async function getWifiById(id: number) {
+    const wifi = await prisma.wifi.findFirst({where: {id: id}});
+    if(wifi) {
+        const passwordDecrypted = decrypt(wifi.password);
+        const wifiInfos = {...wifi, password: passwordDecrypted};
+        return wifiInfos;
+    }
+    return wifi;
+}
