@@ -10,7 +10,7 @@ export async function validateToken(req: Request, res: Response, next: NextFunct
     const token = authorization?.replace("Bearer ", "").trim(); 
     let error: Error
     const secretKey = process.env.SECRET_KEY;
-
+    console.log(token)
     if(!token) {
         return res.status(401).send("Token not send");
     }
@@ -27,8 +27,8 @@ export async function validateToken(req: Request, res: Response, next: NextFunct
     const sessionValidate = await verifySession(token);
     
     res.locals.userId = {
-        userId: sessionValidate.id
+        userId: sessionValidate.userId
     }
 
-    next()
+    next();
 }
