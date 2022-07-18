@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import newCardSchema from '../utils/cardSchema.js';
+import newCardSchema from '../utils/Schemas/cardSchema.js';
 
 export async function newCardMiddleware(req: Request, res: Response, next: NextFunction) {
     const { error } = newCardSchema.validate(req.body)
