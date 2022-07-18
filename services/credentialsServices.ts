@@ -37,5 +37,5 @@ export async function verifyCredentialService(id: number, userId: number) {
     if(credential.userId !== userId){
         throw { status: 401, message: "Unauthorized: Another user's credential" };
     }
-    return credential
+    return credential;
 }

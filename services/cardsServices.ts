@@ -1,5 +1,5 @@
 import { encrypt } from "../utils/ncrypt.js";
-import { verifyCards } from "../repositories/cardsRepository.js";
+import { getCardById, verifyCards } from "../repositories/cardsRepository.js";
 import { newCard, getAllCards } from "../repositories/cardsRepository.js";
 
 export async function newCardService(
@@ -42,4 +42,15 @@ export async function verifyAllCards(userId: number) {
         throw { status: 404, message: "Cards not find" }; 
     }
     return cards;
+}
+
+export async function verifyCardService(id: number, userId: number) {
+    const credential = await getCardById(id);
+    if(credential == undefined) {
+        throw { status: 404, message: "Card not find" }; 
+    }
+    if(credential.userId !== userId){
+        throw { status: 401, message: "Unauthorized: Another user's card" };
+    }
+    return credential;
 }

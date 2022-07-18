@@ -25,3 +25,17 @@ export async function getAllCards(userId: number) {
     }
     return cards;
 }
+
+export async function getCardById(id: number) {
+    const card = await prisma.cards.findFirst({where: {id: id}});
+    if(card) {
+        const passwordDecrypted = decrypt(card.password);
+        const cvcDecrypted = decrypt(card.cvc);
+        return ({...card, password: passwordDecrypted, cvc: cvcDecrypted});
+    }
+    return card;
+}
+
+export async function deleteCard(id: number) {
+    await prisma.cards.delete({where: {id: id}});
+}
