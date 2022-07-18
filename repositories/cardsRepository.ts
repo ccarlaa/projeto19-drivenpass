@@ -12,3 +12,16 @@ export async function verifyCards(title: string, userId: number) {
     const cardInfos = await prisma.cards.findFirst({where: {title: {equals: title, mode: 'insensitive'}, userId: userId}});
     return cardInfos;
 }
+
+export async function getAllCards(userId: number) {
+    const cards = await prisma.cards.findMany({where: {userId: userId}});
+    if(cards) {
+        let cardsList = cards.map((card) => {
+            let passwordDecrypted = decrypt(card.password);
+            let cvcDecrypted = decrypt(card.cvc);
+            return ({...card, password: passwordDecrypted, cvc: cvcDecrypted});
+        });
+        return cardsList;
+    }
+    return cards;
+}

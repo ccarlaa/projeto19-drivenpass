@@ -1,6 +1,6 @@
 import { encrypt } from "../utils/ncrypt.js";
 import { verifyCards } from "../repositories/cardsRepository.js";
-import { newCard } from "../repositories/cardsRepository.js";
+import { newCard, getAllCards } from "../repositories/cardsRepository.js";
 
 export async function newCardService(
     title: string,
@@ -34,4 +34,12 @@ export async function newCardService(
     };
 
     return card;
+}
+
+export async function verifyAllCards(userId: number) {
+    const cards = await getAllCards(userId);
+    if(cards == undefined) {
+        throw { status: 404, message: "Cards not find" }; 
+    }
+    return cards;
 }
