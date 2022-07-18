@@ -7,5 +7,6 @@ export default function errorHandle(error: any, req: Request, res: Response, nex
     if (error.status) {
         return res.status(error.status).send(error.message);
     };
+    console.log(error)
     res.sendStatus(500);
 };

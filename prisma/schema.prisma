@@ -9,11 +9,11 @@ datasource db {
 
 model cards {
   id             Int      @id @default(autoincrement())
-  userId         Int?
+  userId         Int
   title          String
   number         String   @db.VarChar(16)
-  name           String
-  cvc            String   @db.VarChar(3)
+  name           String   
+  cvc            String   
   password       String
   isVirtual      Boolean? @default(false)
   type           String
@@ -24,7 +24,7 @@ model cards {
 
 model credentials {
   id       Int      @id @default(autoincrement())
-  userId   Int?
+  userId   Int
   url      String
   title    String
   password String
@@ -35,7 +35,7 @@ model credentials {
 
 model notes {
   id      Int      @id @default(autoincrement())
-  userId  Int?
+  userId  Int
   title   String   @db.VarChar(50)
   text    String   @db.VarChar(1000)
   creatAt DateTime @default(now()) @db.Timestamp(6)
@@ -44,7 +44,7 @@ model notes {
 
 model sessions {
   id      Int      @id @default(autoincrement())
-  userId  Int?
+  userId  Int
   token   String   @unique
   creatAt DateTime @default(now()) @db.Timestamp(6)
   users   users?   @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
@@ -64,7 +64,7 @@ model users {
 
 model wifi {
   id       Int      @id @default(autoincrement())
-  userId   Int?
+  userId   Int
   title    String
   name     String
   password String

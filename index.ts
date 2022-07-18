@@ -5,6 +5,8 @@ import "express-async-errors";
 
 import userRoute from "./routes/usersRoutes.js";
 import credentialsRoute from "./routes/credentialsRoutes.js";
+import notesRoute from "./routes/notesRoutes.js";
+import cardsRoute from "./routes/cardsRoutes.js";
 import errorHandle from "./middlewares/handErros.js";
 
 dotenv.config();
@@ -15,6 +17,8 @@ app.use(json());
 
 app.use(userRoute);
 app.use(credentialsRoute);
+app.use(notesRoute);
+app.use(cardsRoute);
 
 app.use(errorHandle);
 
