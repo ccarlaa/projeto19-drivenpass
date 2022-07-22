@@ -12,14 +12,14 @@ model cards {
   userId         Int
   title          String
   number         String   @db.VarChar(16)
-  name           String   
-  cvc            String   
+  name           String
+  cvc            String
   password       String
   isVirtual      Boolean? @default(false)
   type           String
   expirationDate String
   creatAt        DateTime @default(now()) @db.Timestamp(6)
-  users          users?   @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  users          users    @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model credentials {
@@ -30,7 +30,7 @@ model credentials {
   password String
   username String
   creatAt  DateTime @default(now()) @db.Timestamp(6)
-  users    users?   @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  users    users    @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model notes {
@@ -39,7 +39,7 @@ model notes {
   title   String   @db.VarChar(50)
   text    String   @db.VarChar(1000)
   creatAt DateTime @default(now()) @db.Timestamp(6)
-  users   users?   @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  users   users    @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model sessions {
@@ -47,7 +47,7 @@ model sessions {
   userId  Int
   token   String   @unique
   creatAt DateTime @default(now()) @db.Timestamp(6)
-  users   users?   @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  users   users    @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model users {
@@ -69,5 +69,5 @@ model wifi {
   name     String
   password String
   creatAt  DateTime @default(now()) @db.Timestamp(6)
-  users    users?   @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  users    users    @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }

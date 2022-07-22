@@ -24,6 +24,8 @@ app.use(wifiRoute);
 
 app.use(errorHandle);
 
+export default app;
+
 const port = process.env.PORT
 app.listen(port, () => {
     console.log(`|-----------------------------------|`)
